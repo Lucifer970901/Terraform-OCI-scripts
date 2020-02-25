@@ -56,6 +56,67 @@ display_name = "private_subnet_vcn1"
 cidr_block = "192.0.1.0/24"
 prohibit_public_ip_on_vnic = "true"
 }
+resource "oci_core_security_list" "this" {
+  compartment_id = var.compartment_ocid
+  vcn_id         = oci_core_vcn.this.id
+  display_name   = "webserver_security_list"
+
+  egress_security_rules {
+    protocol    = "all"
+    destination = "0.0.0.0/0"
+  }
+  ingress_security_rules {
+    tcp_options {
+      max = "22"
+      min = "22"
+    }
+
+    protocol = "6"
+    source   = "0.0.0.0/0"
+  }
+  ingress_security_rules {
+    tcp_options {
+      max = "80"
+      min = "80"
+    }
+    protocol = "6"
+    source   = "0.0.0.0/0"
+  }
+  ingress_security_rules {
+    tcp_options {
+      max = "443"
+      min = "443"
+    }
+
+    protocol = "6"
+    source   = "0.0.0.0/0"
+  }
+  ingress_security_rules {
+    icmp_options {
+      type = "0"
+    }
+
+    protocol = "1"
+    source   = "0.0.0.0/0"
+  }
+  ingress_security_rules {
+    icmp_options {
+      type = "3"
+      code = "4"
+    }
+
+    protocol = "1"
+    source   = "0.0.0.0/0"
+  }
+  ingress_security_rules {
+    icmp_options {
+      type = "8"
+    }
+
+    protocol = "1"
+    source   = "0.0.0.0/0"
+  }
+}
 #output the results
 
 output "vcn_id" {
