@@ -18,7 +18,7 @@ data "oci_identity_availability_domains" "ads" {
 }
 #declare the resources to be deployed
 resource "oci_core_vcn" "vcn1" {
-  cidr_block     = "11.0.0.0/16"
+  cidr_block     = "192.0.0.0/16"  # you can choose any other CIDR range, display name and dns label as you wish
   dns_label      = "vcn1"
   compartment_id = "${var.compartment_ocid}"
   display_name   = "vcn1"
@@ -35,7 +35,7 @@ compartment_id = "${var.compartment_ocid}"
 vcn_id = "${oci_core_vcn.vcn1.id}"
 
 route_rules{
-destination = "0.0.0.0/0"
+destination = "0.0.0.0/0" # this allows all the ip addresses to pass through internet gateway, you can mention if you need any particular ranges or an IP in specific
 network_entity_id = "${oci_core_internet_gateway.vcn1.id}"
 }
 }
@@ -44,7 +44,7 @@ dns_label = "publicVcn1"
 compartment_id = "${var.compartment_ocid}"
 vcn_id = "${oci_core_vcn.vcn1.id}"
 display_name = "public_subnet_vcn1"
-cidr_block = "11.0.0.0/24"
+cidr_block = "192.0.0.0/24"  #you can choose any other cidr ranges if you want
 #availability_domain = "${data.oci_ientity_availability_domains.ads.availability_domain}"
 }
 
