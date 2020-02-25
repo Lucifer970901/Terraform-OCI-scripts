@@ -53,7 +53,7 @@ dns_label = "privateVcn1"
 compartment_id = "${var.compartment_ocid}"
 vcn_id = "${oci_core_vcn.vcn1.id}"
 display_name = "private_subnet_vcn1"
-cidr_block = "11.0.1.0/24"
+cidr_block = "192.0.1.0/24"
 prohibit_public_ip_on_vnic = "true"
 }
 #output the results
