@@ -40,11 +40,11 @@ network_entity_id = "${oci_core_internet_gateway.vcn1.id}"
 }
 }
 resource "oci_core_subnet" "publicvcn1"{
-dns_label = "publicVcn1"
+dns_label = "publicVcn1" # you can choose any other CIDR range, display name and dns label as you wish
 compartment_id = "${var.compartment_ocid}"
 vcn_id = "${oci_core_vcn.vcn1.id}"
 display_name = "public_subnet_vcn1"
-cidr_block = "192.0.0.0/24"  #you can choose any other cidr ranges if you want
+cidr_block = "192.0.0.0/24" 
 #availability_domain = "${data.oci_ientity_availability_domains.ads.availability_domain}"
 }
 
