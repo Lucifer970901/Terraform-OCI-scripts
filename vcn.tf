@@ -1,5 +1,7 @@
 #This file contains A vcn with public and private subnets and associated route tables and security lists for each of the subnets configured
 #This contains all the resources, main and outout files in a single file.
+#among these if you want to deploy any of the vcn in any other region just define the variable and while doing "terraform apply" 
+#you can give the particular value or the name required.
 variable "tenancy_ocid" {}
 variable "user_ocid" {}
 variable "fingerprint" {}
