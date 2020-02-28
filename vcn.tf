@@ -1,4 +1,5 @@
 #This file contains A vcn with public and private subnets and associated route tables and security lists for each of the subnets configured
+#This contains all the resources, main and outout files in a single file.
 variable "tenancy_ocid" {}
 variable "user_ocid" {}
 variable "fingerprint" {}
