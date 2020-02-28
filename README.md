@@ -2,7 +2,6 @@
 This repository contains whatever I tried out  and traouble shooting which was done using terraform for the oracle provider
 This is for the terraform version 12.
 this can be considered as a beginer guide(hands on)
-This particular config file is for resources such as VCN, subnet(both private and public), Internet gateway, Route table with route rules, security lists.
 
 Introduction
 We will discuss the use of infrastructure as a code software to deploy Oracle Linux within Oracle Cloud Infrastructure. Infrastructure as a code is a process where data center computing can be provisioned using machine-readable definition files. Infrastructure as a code can replace traditional tools and techniques such as manual systems administration and interactive UI and command line. Terraform is open-source software that allows users to define complex data center infrastructure in a high-level configuration language used within a supported public cloud using API’s.
