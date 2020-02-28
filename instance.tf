@@ -1,4 +1,5 @@
 #This file contains the configuaration file for the instance that will be created within the VCN 
+#for creating the VCN refer vcn.tf
 variable "preserve_boot_volume" {
   default = false
 }
