@@ -39,22 +39,6 @@ compartment_id = "${var.compartment_ocid}"
 vcn_id = "${oci_core_vcn.vcn1.id}"
 }
 
-resource "oci_core_route_table" "publicRT"{
- compartment_id = "${var.compartment_ocid}"
-vcn_id = "${oci_core_vcn.vcn1.id}"
-display_name = "public_route_table"
-
-route_rules{
-destination = "0.0.0.0/0"
-network_entity_id = "${oci_core_internet_gateway.vcn1.id}"
-}
-}
-resource "oci_core_route_table" "privateRT"{
-compartment_id = "${var.compartment_ocid}"
-vcn_id = "${oci_core_vcn.vcn1.id}"
-display_name = "private_route_table"
-}
-
 resource "oci_core_subnet" "publicvcn1"{
 dns_label = "publicVcn1"
 compartment_id = "${var.compartment_ocid}"
@@ -65,17 +49,17 @@ route_table_id = "${oci_core_route_table.publicRT.id}"
 security_list_ids = ["${oci_core_security_list.publicSL.id}"]
 }
 
-resource "oci_core_subnet" "privatevcn1"{
-dns_label = "privatevcn1"
-compartment_id = "${var.compartment_ocid}"
+resource "oci_core_route_table" "publicRT"{
+ compartment_id = "${var.compartment_ocid}"
 vcn_id = "${oci_core_vcn.vcn1.id}"
-display_name = "${var.display_name_subnet2}"
-cidr_block = "${var.cidr_block_subnet2}"
-prohibit_public_ip_on_vnic = "true"
-route_table_id = "${oci_core_route_table.privateRT.id}"
-security_list_ids = ["${oci_core_security_list.privateSL.id}"]
+display_name = "public_route_table"
+
+route_rules{
+destination = "0.0.0.0/0"
+network_entity_id = "${oci_core_internet_gateway.vcn1.id}"
 }
-resource "oci_core_security_list" "publicSL" {
+ 
+  resource "oci_core_security_list" "publicSL" {
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${oci_core_vcn.vcn1.id}"
   display_name   = "public_security_list"
@@ -119,6 +103,27 @@ resource "oci_core_security_list" "publicSL" {
     source   = "0.0.0.0/0"
   }
 }
+  
+resource "oci_core_subnet" "privatevcn1"{
+dns_label = "privatevcn1"
+compartment_id = "${var.compartment_ocid}"
+vcn_id = "${oci_core_vcn.vcn1.id}"
+display_name = "${var.display_name_subnet2}"
+cidr_block = "${var.cidr_block_subnet2}"
+prohibit_public_ip_on_vnic = "true"
+route_table_id = "${oci_core_route_table.privateRT.id}"
+security_list_ids = ["${oci_core_security_list.privateSL.id}"]
+}
+
+}
+resource "oci_core_route_table" "privateRT"{
+compartment_id = "${var.compartment_ocid}"
+vcn_id = "${oci_core_vcn.vcn1.id}"
+display_name = "private_route_table"
+}
+
+
+
 resource "oci_core_security_list" "privateSL" {
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${oci_core_vcn.vcn1.id}"
