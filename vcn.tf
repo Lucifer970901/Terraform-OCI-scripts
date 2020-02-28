@@ -6,6 +6,13 @@ variable "fingerprint" {}
 variable "private_key_path" {}
 variable "compartment_ocid" {}
 variable "region" {}
+variable "cidr_block_vcn"{}
+variable "display_name_vcn"{}
+variable "display_name_subnet1"{}
+variable "cidr_block_subnet1"{}
+variable "display_name_subnet2"{}
+variable "cidr_block_subnet2"{}
+
 
 provider "oci" {
   tenancy_ocid     = "${var.tenancy_ocid}"
@@ -20,10 +27,10 @@ data "oci_identity_availability_domains" "ads" {
 }
 #declare the resources to be deployed
 resource "oci_core_vcn" "vcn1" {
-  cidr_block     = "192.0.0.0/16"
+  cidr_block     = "${var.cidr_block_vcn}"
   dns_label      = "vcn1"
   compartment_id = "${var.compartment_ocid}"
-  display_name   = "vcn1"
+  display_name   = "${var.display_name_vcn}"
 }
 resource "oci_core_internet_gateway" "vcn1" {
 compartment_id = "${var.compartment_ocid}"
@@ -31,9 +38,10 @@ vcn_id = "${oci_core_vcn.vcn1.id}"
 }
 
 resource "oci_core_route_table" "publicRT"{
-compartment_id = "${var.compartment_ocid}"
+ compartment_id = "${var.compartment_ocid}"
 vcn_id = "${oci_core_vcn.vcn1.id}"
 display_name = "public_route_table"
+
 route_rules{
 destination = "0.0.0.0/0"
 network_entity_id = "${oci_core_internet_gateway.vcn1.id}"
@@ -49,8 +57,8 @@ resource "oci_core_subnet" "publicvcn1"{
 dns_label = "publicVcn1"
 compartment_id = "${var.compartment_ocid}"
 vcn_id = "${oci_core_vcn.vcn1.id}"
-display_name = "public_subnet_vcn1"
-cidr_block = "192.0.0.0/24"
+display_name = "${var.display_name_subnet1}"
+cidr_block = "${var.cidr_block_subnet1}"
 route_table_id = "${oci_core_route_table.publicRT.id}"
 security_list_ids = ["${oci_core_security_list.publicSL.id}"]
 }
@@ -59,8 +67,8 @@ resource "oci_core_subnet" "privatevcn1"{
 dns_label = "privatevcn1"
 compartment_id = "${var.compartment_ocid}"
 vcn_id = "${oci_core_vcn.vcn1.id}"
-display_name = "private_subnet_vcn1"
-cidr_block = "192.0.1.0/24"
+display_name = "${var.display_name_subnet2}"
+cidr_block = "${var.cidr_block_subnet2}"
 prohibit_public_ip_on_vnic = "true"
 route_table_id = "${oci_core_route_table.privateRT.id}"
 security_list_ids = ["${oci_core_security_list.privateSL.id}"]
@@ -174,15 +182,9 @@ value = "${oci_core_route_table.privateRT.id}"
 output "public_subnet_id"{
 value = "${oci_core_subnet.publicvcn1.id}"
 }
-output "private_subnet_id"{
-value = "${oci_core_subnet.privatevcn1.id}"
-}
-output"public_security_list_id"{
-value = "${oci_core_security_list.publicSL.id}"
-}
-output"private_security_list_id"{
-value = "${oci_core_security_list.privateSL.id}"
-}
+
+
+ 
 
 
 
