@@ -55,7 +55,7 @@ resource "oci_core_volume_attachment" "this" {
   count           = "1"
   attachment_type = "iscsi"
   compartment_id  = "${var.compartment_ocid}"
-  instance_id     = "{oci_core_instance.this[count.index].id}"
+  instance_id     = "${oci_core_instance.this[count.index].id}"
   volume_id       = "${oci_core_volume.this.id}"
   use_chap        = true
 }
