@@ -1,7 +1,8 @@
 # This is the configuaration file for creating user, groups and related policies to create the users and give access to them globally.
 #this configuaration file creates users in your tenancy and providesthe user a resource in Oracle Cloud Inrafrasturcture Identity services. 
 #create the resources in your home region for it to be applied
-#the configuaration file creates a user, group and adds user to the group created.
+#the configuaration file creates a user, group and adds user to the group created along with compartment and associated policy.
+# while creating the policy provide the specific name of the compartment and the group where you want the policy to be created.
 variable "tenancy_ocid"{}
 variable "compartment_ocid"{}
 variable "user_ocid" {}
