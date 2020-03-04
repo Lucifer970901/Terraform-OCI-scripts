@@ -13,7 +13,7 @@ variable "assign_public_ip" {
   default = ""
 }
 
-variable "ssh_public_key" {
+variable "ssh_authorized_keys" {
   default = "/home/opc/.ssh/id_rsa.pub"
 }
 
@@ -32,7 +32,7 @@ resource "oci_core_instance" "this" {
     subnet_id      = "${oci_core_subnet.publicvcn1.id}"
   }
   metadata = {
-    ssh_public_key = "${var.ssh_public_key}"
+    ssh_authorized_keys = "${file("${var.ssh_authorized_keys}")}"
   }
   source_details {
     boot_volume_size_in_gbs = "50"
