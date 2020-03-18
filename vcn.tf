@@ -10,10 +10,6 @@ variable "compartment_ocid" {}
 variable "region" {}
 variable "cidr_block_vcn"{}
 variable "display_name_vcn"{}
-variable "display_name_subnet1"{}
-variable "cidr_block_subnet1"{}
-variable "display_name_subnet2"{}
-variable "cidr_block_subnet2"{}
 
 
 provider "oci" {
