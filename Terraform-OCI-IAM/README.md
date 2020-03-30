@@ -1,0 +1,3 @@
+This repository contains the details about creating users, groups and assigning policies to the group etc This is the configuaration file for creating user, groups and related policies to create the users and give access to them globally. This configuaration file creates users in your tenancy and providesthe user a resource in Oracle Cloud Inrafrasturcture Identity services. create the resources in your home region for it to be applied the configuaration file creates a user, group and adds user to the group created along with compartment and associated policy. while creating the policy provide the specific name of the compartment and the group where you want the policy to be created.
+
+make changes to the policy statement as needed to be asssigned to the group
