@@ -1,5 +1,5 @@
 # Terraform 
-This repository contains whatever I tried out  and traouble shooting which was done using terraform for the oracle provider
+This repository contains whatever I tried out  and trouble shooting which was done using terraform for the oracle provider
 This is for the terraform version 12.
 this can be considered as a beginer guide(hands on)
 
