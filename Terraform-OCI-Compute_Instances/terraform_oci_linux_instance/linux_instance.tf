@@ -1,7 +1,7 @@
 #declare the resources for linux instance
 resource "oci_core_instance" "linux" {
   count               = "1"
- availability_domain = "${data.oci_identity_availability_domain.ad.name}"
+ availability_domain = "${lookup(data.oci_identity_availability_domains.ads.availability_domains[0],"name")}"
  compartment_id      = "${var.compartment_ocid}"
   display_name        = "${var.instance_name}"
   shape               = "${var.shape}"
@@ -28,7 +28,7 @@ resource "oci_core_instance" "linux" {
 }
 
 resource "oci_core_volume" "linux" {
-  availability_domain = "${data.oci_identity_availability_domain.ad.name}"
+  availability_domain = "${lookup(data.oci_identity_availability_domains.ads.availability_domains[0],"name")}"
   compartment_id      ="${var.compartment_ocid}"
   display_name        = "Terraform_deployed_Instance"
   size_in_gbs         = "${var.boot_volume_size_in_gbs}"

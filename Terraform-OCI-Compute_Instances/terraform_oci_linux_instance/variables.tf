@@ -8,9 +8,9 @@ provider "oci"{
 }
 
 #provide the list of availability domain
-data "oci_identity_availability_domain" "ad" {
+data "oci_identity_availability_domains" "ads" {
   compartment_id = "${var.compartment_ocid}"
-  ad_number = "${var.availability_domain}"
+
 }
 #common variables
 variable "tenancy_ocid"{}
@@ -19,13 +19,12 @@ variable "private_key_path"{}
 variable "fingerprint"{}
 variable "region"{}
 variable "compartment_ocid"{}
-variable "availability_domain"{
-default = "1"
-}
+
 
 #variables to define vcn
 variable "vcn_cidr_block"{
 description = "provide the valid IPV4 cidr block for vcn"
+default = "192.168.0.0/16"
 }
 variable "vcn_dns_label" {
   description = "A DNS label for the VCN, used in conjunction with the VNIC's hostname and subnet's DNS label to form a fully qualified domain name (FQDN) for each VNIC within this subnet. "
@@ -39,6 +38,7 @@ description = "provide a display name for vcn"
 #variables to define the public subnet
 variable "cidr_block_publicsubnet"{
 description = "note that the cidr block for the subnet must be smaller and part of the vcn cidr block"
+default = "192.168.1.0/24"
 }
 
 variable "publicSubnet_dns_label" {
@@ -69,7 +69,7 @@ description  = "provide the display name for thelinux instance to be deployed"
 }
 
 variable "ssh_authorized_keys" {
-  default = "id_rsa.pub"
+  default = "C:/Users/megn/new.pub"
 }
 
 variable "preserve_boot_volume" {

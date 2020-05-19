@@ -1,7 +1,7 @@
 #this file contains the output from resources deployed
 
 output "show-ad" {
-  value = "${data.oci_identity_availability_domain.ad.name}"
+  value = "${data.oci_identity_availability_domains.ads.availability_domains}"
 }
 
 #output from vcn and subnets
