@@ -24,7 +24,7 @@ variable "compartment_ocid"{}
 #variables to define vcn
 variable "vcn_cidr_block"{
 description = "provide the valid IPV4 cidr block for vcn"
-default = "192.168.0.0/16"
+#default = "192.168.0.0/16"
 }
 variable "vcn_dns_label" {
   description = "A DNS label for the VCN, used in conjunction with the VNIC's hostname and subnet's DNS label to form a fully qualified domain name (FQDN) for each VNIC within this subnet. "
@@ -38,7 +38,7 @@ description = "provide a display name for vcn"
 #variables to define the public subnet
 variable "cidr_block_publicsubnet"{
 description = "note that the cidr block for the subnet must be smaller and part of the vcn cidr block"
-default = "192.168.1.0/24"
+#default = "192.168.1.0/24"
 }
 
 variable "publicSubnet_dns_label" {

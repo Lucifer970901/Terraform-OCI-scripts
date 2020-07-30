@@ -9,8 +9,10 @@ resource "oci_core_security_list" "publicSL" {
   }
   ingress_security_rules {
     tcp_options {
+    destination_port_range{
       max = "22"
       min = "22"
+      }
     }
 
     protocol = "6"
