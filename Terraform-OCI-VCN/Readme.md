@@ -1,2 +1,2 @@
-This folder contains various scripts related to OCI VCn and its components.
+This folder contains various scripts related to OCI VCN and its components.
 
