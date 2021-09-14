@@ -8,15 +8,24 @@ Users need to generate a RSA key pair and enter their public key as an API key v
 
 Terraform Client Installation
 For Oracle Linux 7 we simply perform the following to install Terraform:
+
 Edit /etc/yum.repos.d/public-yum-ol7.repo and if not present add the following to the file:
 [ol7_developer]
-    name=Oracle Linux $releasever Development Packages ($basearch)
-    baseurl=http://yum.oracle.com/repo/OracleLinux/OL7/developer/$basearch/
-    gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
-    gpgcheck=1
-    enabled=1
-    If the entry does exist then change enabled=1 as per the example above.
+
+name=Oracle Linux $releasever Development Packages ($basearch)
+
+baseurl=http://yum.oracle.com/repo/OracleLinux/OL7/developer/$basearch/
+
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+
+gpgcheck=1
+
+enabled=1
+
+If the entry does exist then change enabled=1 as per the example above.
+
 Run: sudo yum install terraform 
+
 
 As Terraform packages are frequently updated, we recommend regular yum updates to enable any new features.
 
@@ -26,17 +35,20 @@ yum install terraform
  
  
 Create an API key for your user
+
 mkdir ~/.oci
  
 openssl genrsa -out ~/.oci/oci_api_key.pem 2048
  
-
 Finally, we generate the public key:
+
 openssl rsa -pubout -in ~/.oci/oci_api_key.pem -out ~/.oci/oci_api_key_public.pem
  
 We can run the following command to view the fingerprint. The fingerprint of a key is a unique sequence of letters and numbers used to identify the key. Similar to a fingerprint of two people never being the same.
+
 openssl rsa -pubout -outform DER -in ~/.oci/oci_api_key.pem | openssl md5 –c
 if it doesn’t work then
+
 openssl rsa -pubout -outform DER -in ~/.oci/oci_api_key.pem | openssl md5 -c
 
  
