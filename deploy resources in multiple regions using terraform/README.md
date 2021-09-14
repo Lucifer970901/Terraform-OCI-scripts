@@ -9,6 +9,7 @@ Alias can be used to define multiple terraform provider configuarations. we defi
 Here is the example on how to define configuaration using Alias.
 
 provider "oci" {
+  
   alias            = "home"
   
   region           = var.region
@@ -20,10 +21,12 @@ provider "oci" {
   fingerprint      = var.fingerprint
   
   private_key_path = var.private_key_path
+
 }
 
 provider "oci" {
-  alias            = "region2"
+
+alias            = "region2"
   
   region           = var.region2
   
@@ -34,6 +37,7 @@ provider "oci" {
   fingerprint      = var.fingerprint
   
   private_key_path = var.private_key_path
+
 }
 
 Define the variables for both the regions in the variables file of terraform.
