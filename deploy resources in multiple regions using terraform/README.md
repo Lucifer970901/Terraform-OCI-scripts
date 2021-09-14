@@ -3,7 +3,8 @@ Hello All!.
 There would be various scenarios which would want us to deploy the resources in various regions at a time. This can be done using terraform!
 here is the usecase where we are trying to deploy the vcn within a new compartment using terraform.
 here, the compartment requires to be created in the home region, and we are creating the VCN in another region, how can this be achieved?
-we need to make use of Alias in terraform.
+
+For this we need to make use of Alias in terraform.
 Alias can be used to define multiple terraform provider configuarations. we define the configuaration for home region and then another configuaration for the region where we want to deploy resources.
 Here is the example on how to define configuaration using Alias.
 
