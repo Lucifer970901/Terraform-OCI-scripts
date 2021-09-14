@@ -28,6 +28,6 @@ Define the variables for both the regions in the variables file of terraform.
 I have also used the “time_sleep” resource to make sure the compartment is up and running before we create the VCN within it.
  please follow the script to understand more on deployment.
 here is the output,
- ![image](https://user-images.githubusercontent.com/26675416/133198045-c42d5b53-5517-43e8-96c1-5f0e745af815.png)
+![image](https://user-images.githubusercontent.com/26675416/133198045-c42d5b53-5517-43e8-96c1-5f0e745af815.png)
 
 Hope this helps, Happy learning!
