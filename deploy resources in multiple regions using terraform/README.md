@@ -10,21 +10,32 @@ Here is the example on how to define configuaration using Alias.
 
 provider "oci" {
   alias            = "home"
+  
   region           = var.region
+  
   tenancy_ocid     = var.tenancy_ocid
+  
   user_ocid        = var.user_ocid
+  
   fingerprint      = var.fingerprint
+  
   private_key_path = var.private_key_path
 }
 
 provider "oci" {
   alias            = "region2"
+  
   region           = var.region2
+  
   tenancy_ocid     = var.tenancy_ocid
+  
   user_ocid        = var.user_ocid
+  
   fingerprint      = var.fingerprint
+  
   private_key_path = var.private_key_path
 }
+
 Define the variables for both the regions in the variables file of terraform.
 I have also used the “time_sleep” resource to make sure the compartment is up and running before we create the VCN within it.
  please follow the script to understand more on deployment.
