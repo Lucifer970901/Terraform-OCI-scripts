@@ -6,7 +6,10 @@ For Oracle Linux 7, installing Terraform is easy: simply enable ol7_developer yu
  
 Users need to generate a RSA key pair and enter their public key as an API key via the Oracle Cloud Infrastructure as explained here. Terraform uses their private key to connect to their Oracle Cloud Infrastructure tenancy. Once the files are completed and then checked via Terraform utilities, the software talks to Oracle Cloud Infrastructure via APIs and can test or dry run the desired configuration before building based upon the configuration files. Terraform keeps track of what it deploys and users can re-create entities for example removed by hand. Terraform can also remove the end configuration.
 
-Terraform Client Installation
+you can follow the below link to install terraform:
+https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/oci-get-started
+
+or follow Terraform Client manual Installation
 For Oracle Linux 7 we simply perform the following to install Terraform:
 
 Edit /etc/yum.repos.d/public-yum-ol7.repo and if not present add the following to the file:
