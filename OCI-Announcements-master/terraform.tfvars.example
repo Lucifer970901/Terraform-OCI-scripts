@@ -1,0 +1,45 @@
+# general oci parameters
+
+api_fingerprint = 
+api_private_key_path = 
+
+home_region = "us-ashburn-1"
+region = "ap-mumbai-1"
+tenancy_id = 
+user_id = 
+
+
+
+compartment_id = 
+
+
+
+
+
+
+
+######################################## Announcements #########################################
+
+
+announcement_subscription_display_name = "navi_demo"
+announcement_subscription_description = "tenancy announcements"
+topic_id = "ocid1.onstopic.oc1.ap-mumbai-1.xxxxxxxxxxx"   # Replace with OCI Notifications Topic ID
+
+announcement_subscription_preferred_language = "en-US"
+announcement_subscription_preferred_time_zone = "Asia/Kolkata"
+
+# Filters: https://docs.oracle.com/en-us/iaas/Content/General/Concepts/announcements_topic-To_create_a_subscription.htm
+#Types of announcement: https://docs.oracle.com/en-us/iaas/Content/General/Concepts/announcements.htm#Types
+
+
+use_filter = false
+filter_groups = [ {
+  name = "region_filter"
+  filters = [
+      {
+        type  = "REGION"
+        value = "ap-mumbai-1"
+      }
+  ]
+}
+]

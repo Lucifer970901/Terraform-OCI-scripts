@@ -1,0 +1,50 @@
+# general oci parameters
+
+api_fingerprint = 
+api_private_key_path = 
+
+home_region = "us-ashburn-1"
+region = "ap-hyderabad-1"
+tenancy_id = 
+user_id = 
+
+
+
+compartment_id = 
+
+
+#access_key_id = 
+#secret_access_key = 
+
+
+
+
+
+############################### Logging - log Group  ####################################
+log_group_description = "Navi-logs"
+log_group_display_name = "navi_bucket_logs_test"
+
+
+############################ Logging - Logs  #################################
+log_display_name = "bucket-access_logs"
+log_type = "SERVICE"
+log_is_enabled = true
+log_retention_duration = 60
+
+log_definition = {
+  "bucket_read" = {
+    resource    = "Navi-TF"         #bucket name
+    category    = "read"
+    service     = "objectstorage"
+    source_type = "OCISERVICE"
+  
+  },
+  "bucket_write" = {
+    resource    = "Navi-TF"
+    category    = "write"
+    service     = "objectstorage"
+    source_type = "OCISERVICE"
+  }
+}
+
+

@@ -1,0 +1,64 @@
+# Terraform compares the new DDL statement with the current schema of the table 
+# and generates an ALTER table statement to apply modifications
+
+
+locals {
+  table_creation_ddl_statements = {
+
+    ##################################################################################################################
+    # The database is optimized for append-only schema changes. 
+    # Add/modify columns only at the end. 
+    # Instead of renaming columns in NoSQL, create new column and map them at the application level
+    # Recreate the table if schema change is mandatory - create a new table with updated schema, migrate existing data 
+    #                                                    to new table and drop the old table 
+
+    #####################################################################################################################
+    hybrid_ddl_statement = {
+      statement  = <<-EOT
+      CREATE TABLE if not exists ${var.hybrid_table_name} (
+      id INTEGER,name STRING,
+      info JSON, Email STRING,
+      PRIMARY KEY(id)
+      )
+      EOT
+      table_name = var.hybrid_table_name
+    }
+
+    #################################################################################################################################
+    # Drop existing column name and add a new column named fullName
+    #######################################################################################################################################
+
+    schemaless_ddl_statement = {
+      statement  = <<-EOT
+      CREATE TABLE if not exists ${var.schemaless_table_name} (
+      key INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1 NO CYCLE),
+      value JSON,
+      PRIMARY KEY (key)
+      )
+      EOT
+      table_name = var.schemaless_table_name
+    }
+  }
+}
+
+
+module "nosql_demo_override" {
+  depends_on = [module.nosql_demo]
+  source              = "./nosql"
+
+  compartment_id      = var.compartment_id
+  table_table_definitions = local.table_creation_ddl_statements
+  #ddl_statement       = each.value.statement
+  #table_name          = each.value.table_name
+  max_read_units      = var.table_limits_max_read_units
+  max_write_units     = var.table_limits_max_write_units
+  max_storage_in_gbs  = var.table_limits_max_storage_in_gbs
+  capacity_mode       = var.capacity_mode
+  is_auto_reclaimable = var.is_auto_reclaimable
+
+
+  providers = {
+    oci             = oci
+    oci.home_region = oci.home_region
+  }
+}

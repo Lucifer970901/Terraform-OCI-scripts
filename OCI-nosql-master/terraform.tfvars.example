@@ -1,0 +1,37 @@
+# general oci parameters
+
+api_fingerprint      = 
+api_private_key_path = 
+
+home_region = "us-ashburn-1"
+region      = "ap-mumbai-1"
+tenancy_id  = 
+user_id     = 
+
+
+compartment_id = 
+
+
+
+############################ NOSQL #####################################################
+
+########################## TABLE ##################################################
+
+hybrid_table_name     = "nosql_demo"
+schemaless_table_name = "nosql_demo_schemaless"
+table_limits_max_read_units     = 50
+table_limits_max_storage_in_gbs = 20
+table_limits_max_write_units    = 50
+is_auto_reclaimable             = false
+capacity_mode                   = "PROVISIONED"
+
+
+
+###################### REPLICA #########################################
+replica_region          = "ap-hyderabad-1"
+replica_max_read_units  = 50
+replica_max_write_units = 50
+
+
+
+

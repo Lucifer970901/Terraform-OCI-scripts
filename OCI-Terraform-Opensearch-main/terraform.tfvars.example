@@ -1,0 +1,183 @@
+# general oci parameters
+# general oci parameters
+
+api_fingerprint = 
+api_private_key_path = 
+
+home_region = "us-ashburn-1"
+region = "ap-hyderabad-1"
+tenancy_id = 
+user_id = 
+
+compartment_id =
+
+###################################################################################################
+#                                  vm parameters (jump server)
+###################################################################################################
+
+app_vm1_instance_count   = "1"
+app_vm1_shape            = "VM.Standard.E4.Flex"
+app_vm1_memory_in_gbs    = "8"
+app_vm1_ocpus            = "1"
+app_vm1_boot_volume_size = "50"
+
+instance_display_name = "jump-server-2"
+ssh_public_key = "ssh-rsa "
+ssh_private_key = <<EOF
+-----BEGIN RSA PRIVATE KEY-----
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+-----END RSA PRIVATE KEY-----
+EOF
+
+
+
+###################################################################################################
+#                         Virtual Cloud Network 
+###################################################################################################
+
+vcn1_vcn_display_name = "vcn1_VCN"
+vcn1_vcn_dns_label = "vcn1vcn"
+vcn1_vcn_cidr_block = ["10.0.0.0/16"]
+
+# Subnet Configurations
+public_subnet_cidr_block = "10.0.1.0/24"
+public_subnet_display_name = "PublicSubnet"
+#public_subnet_dns_label = "publicsubnet"
+
+db_subnet_cidr_block = "10.0.2.0/24"
+db_subnet_display_name = "DBSubnet"
+#db_subnet_dns_label = "dbsubnet"
+
+# Security List Configurations
+public_ingress_rules = [
+  { protocol = "6", source = "0.0.0.0/0", min = 22, max = 22 },   # SSH
+  { protocol = "6", source = "0.0.0.0/0", min = 80, max = 80 },   # HTTP
+  { protocol = "6", source = "0.0.0.0/0", min = 443, max = 443 }, # HTTPS
+  { protocol = "6", source = "0.0.0.0/0", min = 5602, max = 5602 }, # OpenSearch Dashboard
+  { protocol = "6", source = "0.0.0.0/0", min = 9200, max = 9200 }  # OpenSearch
+
+]
+
+#public_egress_rules = ["0.0.0.0/0"] # Allow all outbound traffic
+
+db_ingress_rules = [
+  { protocol = "6", source = "10.0.1.0/24", min = 22, max = 22 },   # SSH from Public Subnet
+  { protocol = "6", source = "10.0.1.0/24", min = 3389, max = 3389 }, # RDP from Public Subnet
+  { protocol = "1", source = "0.0.0.0/0", icmp_type = 3, icmp_code = 4 } # ICMP Ping
+]
+
+#db_egress_rules = ["0.0.0.0/0"] # Allow all outbound traffic
+
+public_egress_rules = [
+  {
+    protocol    = "all"
+    destination = "0.0.0.0/0"
+  }
+]
+
+db_egress_rules = [
+  {
+    protocol    = "all"
+    destination = "0.0.0.0/0"
+  }
+]
+
+###############################################################################################
+#                               OpenSearch Cluster
+###################################################################################################
+
+
+
+opensearch_version      = "2.3.0"
+opensearch_display_name = "navi-opensearch"
+
+# Cluster creation fails if the username is ADMIN
+master_user_name = "ABCXYZ"
+master_user_password = "Welcome123##"
+
+
+master_node_host_type       = "FLEX"
+master_node_count           = 1
+master_node_host_memory_gb  = 20
+master_node_host_ocpu_count = 1
+
+data_node_count           = 1
+data_node_host_type       = "FLEX"
+data_node_host_memory_gb  = 20
+data_node_host_ocpu_count = 4
+data_node_storage_gb      = 50
+
+opendashboard_node_count           = 1
+opendashboard_node_host_memory_gb  = 8
+opendashboard_node_host_ocpu_count = 1
+
+opensearch_cluster_security_mode = "ENFORCING"
+
+maintenance_details_notification_email_ids = ["xyz@oracle.com"]
+
+
+outbound_cluster_is_enabled = false
+#outbound_clusters = []
+
+# For cross cluster creation 
+# Define multiple outbound clusters as a list of maps
+/*
+outbound_clusters = [
+  {
+    display_name       = "OutboundCluster1"
+    seed_cluster_id    ="ocid" # Replace with actual OCID
+    is_skip_unavailable = false
+    mode              = "SEARCH_AND_REPLICATION"  # Valid values: "SEARCH_ONLY", "REPLICATION_ONLY", "SEARCH_AND_REPLICATION"
+    ping_schedule     = -1
+  }
+]
+*/
+
+
+
+
+
+
+##########################  NETWORK DETAILS ############################################################ 
+db_subnet_compartment_id = ""
+#db_subnet_id             = ""
+vcn_compartment_id       = ""
+#vcn_id                   = ""
+
+
+######################### TAGS ##################################################
+#defined_tags                   = { "Environment" = "Production" }
+#freeform_tags                  = { "Project" = "Search" }
+#system_tags                    ={}
+
+
+######################### ALARMS #######################################
+
+#########################  Alarms      #######################################
+#alarm_namespace for opensearch is oci_opensearch
+#resourceId is the OCID of the resource that was scanned
+
+# Refer this for other opensearch Metrics: https://docs.oracle.com/en-us/iaas/Content/search-opensearch/ociopensearchmetrics.htm
+
+
+
+
+
+alarm_namespace = "oci_opensearch"
+destinations    = [""]
+
+alarm_pending_duration = "PT1M"
+alarm_message_format   = "ONS_OPTIMIZED"
+
+
+#metrics
+
+cpu_utilization_alarm_threshold     = 80
+jvm_memory_pressure_alarm_threshold = 75
+cluster_storage_alarm_threshold     = 500
+indexing_latency_alarm_threshold    = 500
+indexing_rate_alarm_threshold       = 100
+search_rate_alarm_threshold         = 100
+search_latency_alarm_threshold      = 500
+
+
